@@ -12,5 +12,5 @@ How-to
     $ git clone https://github.com/tantra35/statsite-debian.git statsite/debian
     $ cd statsite 
     $ debuild -us -uc # Build it. A couple of build dependencies must be installed via apt or something
-    $ sudo dpkg -i ../statsite_0.8.0_amd64.deb # Enjoy!
+    $ sudo dpkg -i ../statsite_0.8.0-1_amd64.deb # Enjoy!
 ```
