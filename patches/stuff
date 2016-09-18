@@ -25,22 +25,23 @@ Last-Update: <YYYY-MM-DD>
 
 --- a/SConstruct
 +++ b/SConstruct
-@@ -45,7 +45,32 @@
+@@ -50,7 +50,33 @@
     statsite_libs.append(["socket", "nsl"])
- 
+
  statsite = env_statsite_with_err.Program('statsite', objs + ["src/statsite.c"], LIBS=statsite_libs)
 +statsite_conf = env_statsite_with_err.File('src/statsite.conf')
 +
 +binary_sink = env_statsite_with_err.File('sinks/binary_sink.py')
-+graphite_sink = env_statsite_with_err.File('sinks/graphite.py')
++cloudwatch_sink = env_statsite_with_err.File('sinks/cloudwatch.sh')
 +gmetric_sink = env_statsite_with_err.File('sinks/gmetric.py')
++graphite_sink = env_statsite_with_err.File('sinks/graphite.py')
 +influxdb_sink = env_statsite_with_err.File('sinks/influxdb.py')
 +librato_sink = env_statsite_with_err.File('sinks/librato.py')
++opentsdb_sink = env_statsite_with_err.File('sinks/opentsdb.js')
 +json_sink = env_statsite_with_err.File('sinks/statsite_json_sink.rb')
 +
-+
  statsite_test = env_statsite_without_err.Program('test_runner', objs + Glob("tests/runner.c"), LIBS=statsite_libs + ["check"])
- 
+
  # By default, only compile statsite
  Default(statsite)
 +
@@ -54,7 +55,7 @@ Last-Update: <YYYY-MM-DD>
 +share = '%s/usr/share/statsite' % instdir
 +
 +env_statsite_with_err.Install(bin, statsite)
-+env_statsite_with_err.Install(share, [binary_sink,graphite_sink,gmetric_sink,influxdb_sink,librato_sink])
++env_statsite_with_err.Install(share, [binary_sink,cloudwatch_sink,gmetric_sink,graphite_sink,influxdb_sink,librato_sink,opentsdb_sink,json_sink])
 +env_statsite_with_err.Install(etc, statsite_conf)
 +
 +env_statsite_with_err.Alias('install', [bin, etc, share])
